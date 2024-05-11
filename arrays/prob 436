@@ -1,0 +1,20 @@
+class Solution:
+    def findRightInterval(self, intervals: List[List[int]]) -> List[int]:
+        def first(x) :
+            return x[0]
+        def second(x):
+            return x[1]
+        indices = {}
+        a = [-1] * len(intervals)
+        for i in range(len(intervals)):
+            indices[intervals[i][0]] = i
+        start = sorted(intervals, key = first)
+        end = sorted(intervals, key = second)
+        j = 0
+        for i in range(len(intervals)):
+            while j < len(intervals) and start[i][0] >= end[j][1] :
+                if(start[i][0] >= end[j][1]) :
+                    k = indices[end[j][0]]
+                    a[k] = indices[start[i][0]]
+                    j += 1
+        return a
